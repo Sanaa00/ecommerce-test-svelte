@@ -11,13 +11,11 @@
 {:else if $Products.length !== 0}
 	<div>
 		<p class="mt-10">All Products</p>
-		<div class="my-10 grid grid-cols-3 gap-10">
+		<div class="mt-10 grid grid-cols-3 gap-10">
 			{#each $Products as item}
 				<div class="border-b-2 border-zard py-2">
 					{console.log('products', $Products)}
-					<a href={`/Products/${item.id}`}
-						><img src={item.images[0]} alt={item.title} class="h-60 w-full object-cover" />
-					</a>
+					<img src={item.images[0]} alt={item.title} class="h-60 w-full object-cover" />
 
 					<p>{item.title}</p>
 					<div class="mt-4 flex items-center justify-between">

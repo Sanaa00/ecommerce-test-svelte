@@ -11,10 +11,12 @@
 {#if $categoryProductsLoading}
 	<div>Loading</div>
 {:else if $categoryProducts.length !== 0}<div>
-		<p class="mt-10">All Category</p>
-		<div class="my-10 grid grid-cols-3 gap-5">
+		<p>All Category</p>
+		<div class="grid grid-cols-3 gap-5">
 			{#each $categoryProducts as item}
-				<div class="flex h-10 w-full items-center justify-center rounded-sm bg-zard font-semibold">
+				<div
+					class="flex h-10 w-full items-center justify-center rounded-sm bg-zard font-semibold text-gray-100"
+				>
 					{item}
 				</div>
 			{/each}
