@@ -1,0 +1,139 @@
+<script>
+	import { createForm } from 'svelte-forms-lib';
+	// import { formData } from '../../Store/store';
+	import * as yup from 'yup';
+
+	const { form, errors, state, handleChange, handleSubmit } = createForm({
+		initialValues: {
+			title: '',
+			name: '',
+			email: ''
+		},
+		validationSchema: yup.object().shape({
+			title: yup.string().oneOf(['Mr', 'Mrs', 'Mx']).required(),
+			name: yup.string().required(),
+			email: yup.string().email().required()
+		}),
+		onSubmit: (values) => {
+			console.log(JSON.stringify(values));
+			console.log(values);
+		}
+	});
+</script>
+
+<div class="min-h-screen px-60">
+	<p class=" mt-10 flex text-lg font-bold text-cyan-800">About us</p>
+	<form on:submit={handleSubmit} class="flex flex-col">
+		<label for="title" class="mt-4">title</label>
+
+		<select class="w-80" id="title" name="title" on:change={handleChange} bind:value={$form.title}>
+			<option>mr</option>
+			<option>Mrs</option>
+			<option>Mx</option>
+			<!-- <option>mr</option> -->
+		</select>
+		{#if $errors.title}<small>{$errors.title}</small>
+		{/if}
+
+		<label for="name" class="mt-4">name</label>
+		<input
+			class="w-80"
+			id="name"
+			name="name"
+			on:change={handleChange}
+			on:blur={handleChange}
+			bind:value={$form.name}
+		/>
+		{#if $errors.name}
+			<small>{$errors.name}</small>
+		{/if}
+
+		<label for="email" class="mt-4">email</label>
+		<input
+			class="w-80"
+			name="email"
+			id="email"
+			on:change={handleChange}
+			on:blur={handleChange}
+			bind:value={$form.email}
+		/>
+		{#if $errors.email}
+			<small>{$errors.email}</small>
+		{/if}
+
+		<button type="submit" class="mt-10 w-80 rounded-sm bg-cyan-800 py-2 text-white">Submit</button>
+	</form>
+</div>
+
+<!-- <script lang="ts">
+	// @ts-nocheck
+	import { createForm } from 'svelte-forms-lib';
+	import * as yup from 'yup';
+
+	// Create the form
+	const { values, errors, handleSubmit, isSubmitting } = createForm({
+		initialValues: {
+			username: '', // Ensure the keys match the form fields
+			password: ''
+		},
+		validationSchema: yup.object().shape({
+			username: yup.string().required('Username is required'),
+			password: yup.string().required('Password is required')
+		}),
+		onSubmit: async (formValues) => {
+			try {
+				console.log('Submitting form:', formValues);
+				const response = await fetch('https://dummyjson.com/auth/login', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						...formValues,
+						expiresInMins: 30
+					}),
+					credentials: 'include'
+				});
+
+				if (!response.ok) throw new Error('Invalid username or password');
+
+				const data = await response.json();
+				localStorage.setItem('authToken', data.token);
+				alert('Login successful!');
+			} catch (error) {
+				alert(error.message);
+			}
+		}
+	});
+</script>
+
+<form on:submit|preventDefault={handleSubmit}>
+	<div>
+		<label for="username">Username:</label>
+		<input
+			id="username"
+			type="text"
+			bind:value={$values.username}
+			placeholder="Enter your username"
+		/>
+		{#if $errors.username}
+			Use $errors for validation messages -->
+<!-- <p class="error">{$errors.username}</p>
+		{/if}
+	</div>
+
+	<div>
+		<label for="password">Password:</label>
+		<input
+			id="password"
+			type="password"
+			bind:value={$values.password}
+			placeholder="Enter your password"
+		/>
+		{#if $errors.password}
+			<p class="error">{$errors.password}</p>
+		{/if}
+	</div>
+
+	<button type="submit" disabled={isSubmitting}>
+		{isSubmitting ? 'Logging in...' : 'Login'}
+	</button>
+</form> -->

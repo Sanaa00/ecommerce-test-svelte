@@ -32,6 +32,9 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
-		"@tailwindcss/typography": "^0.5.15"
+		"@tailwindcss/typography": "^0.5.15",
+		"svelte-forms-lib": "^2.0.1",
+		"svelte-routing": "^2.13.0",
+		"yup": "^1.6.1"
 	}
 }
